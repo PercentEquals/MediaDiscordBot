@@ -1,0 +1,60 @@
+{
+  "lockfileVersion": 1,
+  "workspaces": {
+    "": {
+      "name": "discordbot",
+      "dependencies": {
+        "@logtape/logtape": "^1.0.4",
+        "@logtape/pretty": "^1.0.4",
+        "discordeno": "^21.0.0",
+        "ytdlp-nodejs": "^2.3.4",
+      },
+      "devDependencies": {
+        "@types/bun": "latest",
+      },
+      "peerDependencies": {
+        "typescript": "^5",
+      },
+    },
+  },
+  "trustedDependencies": [
+    "ytdlp-nodejs",
+  ],
+  "packages": {
+    "@discordeno/bot": ["@discordeno/bot@21.0.0", "", { "dependencies": { "@discordeno/gateway": "21.0.0", "@discordeno/rest": "21.0.0", "@discordeno/types": "21.0.0", "@discordeno/utils": "21.0.0" } }, "sha512-x6EcVHBvWIhjY5/lcwgZzzCiqdpKFZqu2qUaZqKb7RYS8L8Q8zY40hCnbToVehLB8+BGcnHzxCeEvWWg8tnT/g=="],
+
+    "@discordeno/gateway": ["@discordeno/gateway@21.0.0", "", { "dependencies": { "@discordeno/types": "21.0.0", "@discordeno/utils": "21.0.0", "ws": "^8.18.0" }, "optionalDependencies": { "fzstd": "^0.1.1" } }, "sha512-ur5Hatd1x86PPI4UnXKghAWat3vS90NvLJcpOSu1B1gYSENRZow8dohZ8Ov58SXWq5nZVuBYDJNCR248pWJvrg=="],
+
+    "@discordeno/rest": ["@discordeno/rest@21.0.0", "", { "dependencies": { "@discordeno/types": "21.0.0", "@discordeno/utils": "21.0.0" } }, "sha512-ew5ddhUd7Qyv/GSzCy42bEmRv0yr2PspCMsLD/NeMiTLd3+OrVN5pAxBN9z+9JpS/daiiD/PVmvuUAVx/nXTEw=="],
+
+    "@discordeno/types": ["@discordeno/types@21.0.0", "", {}, "sha512-TUZAEqqlXRNQji+NCaQo8DruzI8rXbBvMaZYsZvN9f03PrdSddzMOy3cjs4eeL6ZMVocmMVRIaVnB713blylCw=="],
+
+    "@discordeno/utils": ["@discordeno/utils@21.0.0", "", { "dependencies": { "@discordeno/types": "21.0.0" } }, "sha512-I7I3Szlk+LkT/CRmJJiLPsjuBUjbuXUCvOzsgWCltkxDMIGmQeNoQtFK7t89V1Gcc4icsrnHVMho1BcaAITijg=="],
+
+    "@logtape/logtape": ["@logtape/logtape@1.0.4", "", {}, "sha512-YvNVrXIxVpnY528zoiEjX8PqTfr0UCtKXyssvaWL8AE+OByFTCooKuKMdPlm6g65YUI9fPXrHn4UnogSskABnA=="],
+
+    "@logtape/pretty": ["@logtape/pretty@1.0.4", "", { "peerDependencies": { "@logtape/logtape": "1.0.4" } }, "sha512-jdQ2rErYNalDdtVBropN2I9Fyc4hLxKgYVq5t75KIprXekueuFeOxqeROgYOdOhSpBi4knfr2XvlXBmjaVNPrA=="],
+
+    "@types/bun": ["@types/bun@1.2.19", "", { "dependencies": { "bun-types": "1.2.19" } }, "sha512-d9ZCmrH3CJ2uYKXQIUuZ/pUnTqIvLDS0SK7pFmbx8ma+ziH/FRMoAq5bYpRG7y+w1gl+HgyNZbtqgMq4W4e2Lg=="],
+
+    "@types/node": ["@types/node@24.2.0", "", { "dependencies": { "undici-types": "~7.10.0" } }, "sha512-3xyG3pMCq3oYCNg7/ZP+E1ooTaGB4cG8JWRsqqOYQdbWNY4zbaV0Ennrd7stjiJEFZCaybcIgpTjJWHRfBSIDw=="],
+
+    "@types/react": ["@types/react@19.1.9", "", { "dependencies": { "csstype": "^3.0.2" } }, "sha512-WmdoynAX8Stew/36uTSVMcLJJ1KRh6L3IZRx1PZ7qJtBqT3dYTgyDTx8H1qoRghErydW7xw9mSJ3wS//tCRpFA=="],
+
+    "bun-types": ["bun-types@1.2.19", "", { "dependencies": { "@types/node": "*" }, "peerDependencies": { "@types/react": "^19" } }, "sha512-uAOTaZSPuYsWIXRpj7o56Let0g/wjihKCkeRqUBhlLVM/Bt+Fj9xTo+LhC1OV1XDaGkz4hNC80et5xgy+9KTHQ=="],
+
+    "csstype": ["csstype@3.1.3", "", {}, "sha512-M1uQkMl8rQK/szD0LNhtqxIPLpimGm8sOBwU7lLnCpSbTyY3yeU1Vc7l4KT5zT4s/yOxHH5O7tIuuLOCnLADRw=="],
+
+    "discordeno": ["discordeno@21.0.0", "", { "dependencies": { "@discordeno/bot": "21.0.0", "@discordeno/gateway": "21.0.0", "@discordeno/rest": "21.0.0", "@discordeno/types": "21.0.0", "@discordeno/utils": "21.0.0" } }, "sha512-NX1x5GtHbrNhpeahfHw+2A6/3bpec2obNjIZ/mkBUGWcpLWG/ZgJSIkkdQIxcrnQ3loQooo/5IpBucnFTiGATA=="],
+
+    "fzstd": ["fzstd@0.1.1", "", {}, "sha512-dkuVSOKKwh3eas5VkJy1AW1vFpet8TA/fGmVA5krThl8YcOVE/8ZIoEA1+U1vEn5ckxxhLirSdY837azmbaNHA=="],
+
+    "typescript": ["typescript@5.9.2", "", { "bin": { "tsc": "bin/tsc", "tsserver": "bin/tsserver" } }, "sha512-CWBzXQrc/qOkhidw1OzBTQuYRbfyxDXJMVJ1XNwUHGROVmuaeiEm3OslpZ1RV96d7SKKjZKrSJu3+t/xlw3R9A=="],
+
+    "undici-types": ["undici-types@7.10.0", "", {}, "sha512-t5Fy/nfn+14LuOc2KNYg75vZqClpAiqscVvMygNnlsHBFpSXdJaYtXMcdNLpl/Qvc3P2cB3s6lOV51nqsFq4ag=="],
+
+    "ws": ["ws@8.18.3", "", { "peerDependencies": { "bufferutil": "^4.0.1", "utf-8-validate": ">=5.0.2" }, "optionalPeers": ["bufferutil", "utf-8-validate"] }, "sha512-PEIGCY5tSlUt50cqyMXfCzX+oOPqN0vuGqWzbcJ2xvnkzkq46oOpz7dQaTDBdfICb4N14+GARUDw2XV2N4tvzg=="],
+
+    "ytdlp-nodejs": ["ytdlp-nodejs@2.3.4", "", { "bin": { "ytdlp-nodejs": "dist/cli.js" } }, "sha512-uLROl2N9lHsK7N7wvnYzWsCwFR8yqjOBqR82efbnPxnl0bZUmy1H2yq1J3bsjSDERTxSaG176wn7tKzTD045Xw=="],
+  }
+}

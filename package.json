@@ -1,0 +1,25 @@
+{
+  "name": "discordbot",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start": "bun run ./src/index.ts",
+    "dev": "bun run --watch ./src/index.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "trustedDependencies": [
+    "ytdlp-nodejs"
+  ],
+  "dependencies": {
+    "@logtape/logtape": "^1.0.4",
+    "@logtape/pretty": "^1.0.4",
+    "discordeno": "^21.0.0",
+    "ytdlp-nodejs": "^2.3.4"
+  }
+}
