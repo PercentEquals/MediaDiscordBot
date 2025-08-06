@@ -1,10 +1,9 @@
-import { configure, getConsoleSink, getLogger as getLoggerInternal } from "@logtape/logtape";
-import { prettyFormatter } from "@logtape/pretty";
+import { ansiColorFormatter, configure, getConsoleSink, getLogger as getLoggerInternal } from "@logtape/logtape";
 
 export namespace Logger {
     export async function setup() {
         await configure({
-            sinks: { console: getConsoleSink({ formatter: prettyFormatter }), },
+            sinks: { console: getConsoleSink({ formatter: ansiColorFormatter }), },
             loggers: [
                 { category: ["logtape", "meta"], sinks: [] },
                 { category: "Deno", lowestLevel: "info", sinks: ["console"] },

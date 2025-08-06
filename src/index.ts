@@ -1,6 +1,6 @@
 import bot from "./bot";
 import commands from "./commands";
-import { YoutubeDLProcessor } from "./lib/ytdlp/YoutubeDLProcessor";
+import YoutubeDLProcessor from "./lib/ytdlp/YoutubeDLProcessor";
 import { Logger } from "./logger";
 
 await Logger.setup();

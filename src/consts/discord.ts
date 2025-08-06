@@ -1,0 +1,1 @@
+export const DISCORD_LIMIT = 10; // 10MB

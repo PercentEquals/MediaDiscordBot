@@ -20,6 +20,7 @@
     "@logtape/logtape": "^1.0.4",
     "@logtape/pretty": "^1.0.4",
     "discordeno": "^21.0.0",
+    "node-html-parser": "^7.0.1",
     "ytdlp-nodejs": "^2.3.4"
   }
 }
