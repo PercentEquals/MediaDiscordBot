@@ -1,12 +1,12 @@
 import commands from '../commands/index.js'
 import bot from '../bot.js'
 
-import { commandOptionsParser, InteractionTypes } from '@discordeno/bot'
+import { commandOptionsParser, InteractionTypes, type Interaction } from '@discordeno/bot'
 import { Logger } from '../logger.js'
 
 const logger = Logger.getLogger(["events", "interactionCreate"])
 
-export const event: typeof bot.events.interactionCreate = async (interaction: any) => {
+export const event: typeof bot.events.interactionCreate = async (interaction) => {
     if (interaction.type === InteractionTypes.ApplicationCommand) {
         if (!interaction.data) return
 
@@ -14,7 +14,7 @@ export const event: typeof bot.events.interactionCreate = async (interaction: an
         if (!command) return
 
         try {
-            await command.execute(interaction, commandOptionsParser(interaction));
+            await command.execute(interaction as unknown as Interaction, commandOptionsParser(interaction));
         } catch (e) {
             logger.error(`Error executing command ${command.name}: ${e}`);
             interaction.respond({ content: "An error occurred while executing the command." });

@@ -1,13 +1,12 @@
 import { Logger } from "../../logger";
-import { type FileContent } from "discordeno";
 import { LinkUtils } from "./LinkUtils";
 import ProcessorFactory, { ProcessorType } from "../factory/ProcessorFactory";
 import type IProcessor from "../interfaces/IProcessor";
 import { BlobCache } from "../cache/BlobCache";
 
-export default class LinkProcessor implements IProcessor<FileContent[]> {
+export default class LinkProcessor implements IProcessor<Blob[]> {
     private static logger = Logger.getLogger(['lib', 'link', 'LinkProcessor']);
-    private id: string = "";
+    public readonly id: string = "";
     private url: URL;
 
     constructor(
@@ -29,8 +28,8 @@ export default class LinkProcessor implements IProcessor<FileContent[]> {
         this.url = new URL(url);
     }
 
-    public async execute(): Promise<FileContent[]> {
-        const url = await LinkUtils.extractUrl(this.url);
+    public async execute(): Promise<Blob[]> {
+        const url = await LinkUtils.preprocessUrl(this.url);
 
         for (const processor of this.processors) {
             try {
@@ -42,13 +41,7 @@ export default class LinkProcessor implements IProcessor<FileContent[]> {
                 }
 
                 BlobCache.set(url, result);
-
-                return result.map((file) => {
-                    return {
-                        name: this.id + '.' + LinkUtils.getExtensionFromFileType(file),
-                        blob: file,
-                    }
-                });
+                return result;
             } catch (e) {
                 LinkProcessor.logger.warn(`Error processing URL ${url}: ${e}`);
             }

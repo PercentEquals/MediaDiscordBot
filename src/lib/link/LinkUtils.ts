@@ -5,6 +5,16 @@ import TiktokProcessor from "../tiktok/TiktokProcessor";
 const logger = Logger.getLogger(['lib', 'link', 'LinkUtils']);
 
 export namespace LinkUtils {
+    export function extractUrl(url: string) {
+        url = url.match(/\bhttps?:\/\/\S+/gi)?.[0] ?? url;
+
+        if (!url.startsWith('http')) {
+            url = `https://${url}`;
+        }
+
+        return url;
+    }
+
     export function getExtensionFromFileType(file: Blob) {
         return file.type.split('/')[1];
     }
@@ -25,7 +35,7 @@ export namespace LinkUtils {
         return new URL(match[1] ?? url);
     }
 
-    export async function extractUrl(url: URL): Promise<URL> {
+    export async function preprocessUrl(url: URL): Promise<URL> {
         if (url.hostname.includes('tiktok')) {
             if (url.pathname.includes('/photo/')) {
                 url.pathname = url.pathname.replace('/photo/', '/video/');
@@ -41,7 +51,7 @@ export namespace LinkUtils {
                 const canonicalUrl = await getTiktokCanonicalUrl(url);
 
                 if (canonicalUrl !== url) {
-                    return extractUrl(canonicalUrl);
+                    return preprocessUrl(canonicalUrl);
                 }
             } catch (e) {
                 logger.error(`Error extracting Tiktok canonical URL for ${url}: ${e}`);

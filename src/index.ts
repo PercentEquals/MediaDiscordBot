@@ -12,5 +12,3 @@ await YoutubeDLProcessor.setup();
 
 await bot.start();
 await bot.rest.upsertGlobalApplicationCommands([...commands.values()]);
-
-logger.info("Bot started successfully");
