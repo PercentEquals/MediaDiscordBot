@@ -1,19 +1,19 @@
 import { describe, expect, mock, test } from "bun:test";
-import { downloadFileStream } from "./download";
+import { downloadBlob } from "./download";
 
 const mockFetch = mock();
 global.fetch = mockFetch as any as typeof global.fetch;
 mock.module("node-fetch", () => mockFetch);
 
-describe("DownloadFileStream", () => {
+describe("DownloadBlob", () => {
     test("throws with invalid data", () => {
-        expect(downloadFileStream("")).rejects.toThrowError();
-        expect(downloadFileStream("lala")).rejects.toThrowError();
+        expect(downloadBlob("")).rejects.toThrowError();
+        expect(downloadBlob("lala")).rejects.toThrowError();
     });
 
     test("succeedes with valid data", () => {
         mockFetch.mockReturnValueOnce(Promise.resolve(new Response("hello world")));
-        expect(downloadFileStream("http://abc.cbd")).resolves;
+        expect(downloadBlob("http://abc.cbd")).resolves;
         expect(mockFetch).toHaveBeenCalledTimes(1);
     })
 });

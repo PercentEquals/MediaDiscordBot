@@ -1,12 +1,16 @@
 import parse from "node-html-parser";
-import { downloadFileStream } from "../file/download";
+import { downloadBlob } from "../file/download";
+import { DISCORD_LIMIT } from "../../consts/discord";
+import type IProcessor from "../interfaces/IProcessor";
 
-export default class TiktokProcessor {
+export default class TiktokProcessor implements IProcessor<Blob[]> {
     static userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36";
     private cookies: string = "";
     private canonical: string = "";
     private data: TiktokRehydrationApi | null = null;
-    private audioOnly: boolean = false;
+    private onlyAudio: boolean = false;
+
+    private blobs: Blob[] = [];
 
     constructor(private url: URL) {
         
@@ -31,18 +35,22 @@ export default class TiktokProcessor {
     }
 
     public audio() {
-        this.audioOnly = true;
+        this.onlyAudio = true;
         return this;
     }
 
     public async execute(): Promise<Blob[]> {
+        if (!this.url.hostname.includes('tiktok')) {
+            return [];
+        }
+
         await this.getInfo();
 
         const videoUrl = this.data!.itemInfo.itemStruct.video.downloadAddr ??
                          this.data!.itemInfo.itemStruct.video.playAddr;
 
         const audioUrl = this.data?.itemInfo?.itemStruct?.music?.playUrl!;
-        const downloadAddr = this.audioOnly ? audioUrl : videoUrl;
+        const downloadAddr = this.onlyAudio ? audioUrl : videoUrl;
 
         if (this.isSlideshow()) {
             const slideshow = this.getSlideshowData();
@@ -52,14 +60,22 @@ export default class TiktokProcessor {
                 files.push(await this.download(slide));
             }
 
+            this.blobs = files;
             return files;
         }
 
-        return [await this.download(downloadAddr)];
+        const file = await this.download(downloadAddr);
+
+        if (file.size > DISCORD_LIMIT * 1024 * 1024) {
+            return [];
+        }
+
+        this.blobs = [file];
+        return [file];
     }
 
     private async download(url: string) {
-        return downloadFileStream(
+        return downloadBlob(
             url,
             {
                 headers: {

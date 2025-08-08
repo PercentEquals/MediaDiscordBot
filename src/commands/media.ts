@@ -2,7 +2,7 @@ import { ApplicationCommandOptionTypes } from '@discordeno/types'
 import type { Command } from '.';
 import { Logger } from '../logger';
 import LinkProcessor from '../lib/link/LinkProcessor';
-import performance from '../lib/performance/Performance';
+import performance from '../lib/performance/performance';
 
 const logger = Logger.getLogger(['commands', 'media']);
 

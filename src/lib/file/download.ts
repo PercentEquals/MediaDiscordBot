@@ -1,4 +1,4 @@
-export async function downloadFileStream(url: string, options?: RequestInit): Promise<Blob> {
+export async function downloadBlob(url: string, options?: RequestInit): Promise<Blob> {
     if (!url) {
         throw new Error('No url provided!');
     }
