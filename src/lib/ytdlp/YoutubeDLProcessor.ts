@@ -2,10 +2,12 @@ import { YtDlp } from "ytdlp-nodejs";
 import { DISCORD_LIMIT } from "../../consts/discord";
 import { Logger } from "../../logger";
 import type IProcessor from "../interfaces/IProcessor";
+import YoutubeDLInfoProcessor from "./YoutubeDLInfoProccessor";
+import trim from "../file/buffer";
 
 export default class YoutubeDLProcessor implements IProcessor<Blob[]> {
     private static logger = Logger.getLogger(['lib', 'ytdlp', 'YoutubeDLProcessor']);
-    private blob: Blob | null = null;
+
     private command: string[] = [];
 
     constructor(
@@ -24,31 +26,28 @@ export default class YoutubeDLProcessor implements IProcessor<Blob[]> {
 
         this.command.push("--quiet");
         this.command.push("--format", "mp4");
-
-        this.command.push('-S', `filesize:${DISCORD_LIMIT}M`);
+        this.command.push('-I', '0');
     }
 
-    private trimEnd(buffer: Buffer) {
-        let pos = 0;
+    public filesize(size: number) {
+        this.command.push('-S', `filesize:${size}M`);
 
-        for (let i = buffer.length - 1; i >= 0; i--) {
-            if (buffer[i] !== 0x00) {
-                pos = i;
-                break;
-            }
-        }
+        return this;
+    }
 
-        return buffer.slice(0, pos + 1);
+    public info() {
+        this.command.push('--dump-json', '--skip-download');
+        return new YoutubeDLInfoProcessor(this.executor, this.command);
     }
 
     public async execute(): Promise<Blob[]> {        
-        YoutubeDLProcessor.logger.debug(`Executing yt-dlp command with args: ${this.command}`);
+        YoutubeDLProcessor.logger.debug(`Executing yt-dlp command with args: ${this.command.join(' ')}`);
 
         const buffer = Buffer.alloc(DISCORD_LIMIT * 1024 * 1024);
         await Bun.$`${this.executor} ${this.command} --output - > ${buffer}`;
-        this.blob = new Blob([this.trimEnd(buffer)], { type: "video/mp4" });
+        const blob = new Blob([trim(buffer)], { type: "video/mp4" });
 
-        return [this.blob];
+        return [blob];
     }
 
     public static async setup() {

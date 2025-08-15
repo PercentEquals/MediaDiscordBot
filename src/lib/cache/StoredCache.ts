@@ -7,7 +7,7 @@ export namespace StoredCache {
     const fileMap = new Map<string, Blob>();
 
     export function getAvailableFiles() {
-        const files = fs.readdirSync('cache');
+        const files = fs.readdirSync('.cache');
 
         for (const file of files) {
             if (file.startsWith('.')) {
@@ -15,14 +15,13 @@ export namespace StoredCache {
             }
 
             logger.trace(`Found available file: ${file}`);
-            fileMap.set(file, new Blob([fs.readFileSync(`cache/${file}`)]));
+            fileMap.set(file, new Blob([fs.readFileSync(`.cache/${file}`)]));
         }
 
-        return files;
+        return Array.from(fileMap.keys());
     }
-
+    
     export function get(fileName: string): Blob {
-        return fileMap.get(fileName)!;
+        return fileMap.get(fileName)!; 
     }
-
 }

@@ -7,7 +7,7 @@ export namespace Logger {
             loggers: [
                 { category: ["logtape", "meta"], sinks: [] },
                 { category: "Deno", lowestLevel: "info", sinks: ["console"] },
-                { category: "DiscordBot", lowestLevel: "debug", sinks: ["console"] }
+                { category: "DiscordBot", lowestLevel: "trace", sinks: ["console"] }
             ]
         });
     }

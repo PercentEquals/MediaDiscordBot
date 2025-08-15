@@ -3,6 +3,7 @@ import { LinkUtils } from "./LinkUtils";
 import ProcessorFactory, { ProcessorType } from "../factory/ProcessorFactory";
 import type IProcessor from "../interfaces/IProcessor";
 import { BlobCache } from "../cache/BlobCache";
+import YoutubeDLProcessor from "../ytdlp/YoutubeDLProcessor";
 
 export default class LinkProcessor implements IProcessor<Blob[]> {
     private static logger = Logger.getLogger(['lib', 'link', 'LinkProcessor']);
@@ -13,9 +14,10 @@ export default class LinkProcessor implements IProcessor<Blob[]> {
         url: string,
         private processorFactory: typeof ProcessorFactory = ProcessorFactory,
         private processors: ProcessorType[] = [
-            ProcessorType.BlobCache,
+            ProcessorType.Cache,
             ProcessorType.Tiktok,
-            ProcessorType.YoutubeDL
+            ProcessorType.Youtube,
+            ProcessorType.Split
         ]
     ) {
         url = url.match(/\bhttps?:\/\/\S+/gi)?.[0] ?? url;
@@ -33,8 +35,9 @@ export default class LinkProcessor implements IProcessor<Blob[]> {
 
         for (const processor of this.processors) {
             try {
-                const processorInstance = this.processorFactory(processor);
-                const result = await processorInstance(url).execute();
+                const processorProvider = this.processorFactory(processor);
+                const processorInstance = processorProvider(url);
+                const result = await processorInstance.execute();
                 
                 if (result.length === 0) {
                     continue;

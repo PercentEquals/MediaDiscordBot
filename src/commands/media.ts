@@ -73,32 +73,6 @@ const media: Command = {
 				}
 			]
 		}
-
-		// {
-		// 	name: 'emoji',
-		// 	description: "What would you like to set as this button's emoji?",
-		// 	type: ApplicationCommandOptionTypes.String,
-		// 	required: true,
-		// },
-		// {
-		// 	name: 'color',
-		// 	description:
-		// 		"What color would you like to set as this button's color?",
-		// 	type: ApplicationCommandOptionTypes.Integer,
-		// 	required: true,
-		// 	choices: [
-		// 		{ name: 'Blue', value: ButtonStyles.Primary },
-		// 		{ name: 'Green', value: ButtonStyles.Success },
-		// 		{ name: 'Grey', value: ButtonStyles.Secondary },
-		// 		{ name: 'Red', value: ButtonStyles.Danger },
-		// 	],
-		// },
-		// {
-		// 	name: 'label',
-		// 	description:
-		// 		'What would you like to set for the name on this button?',
-		// 	type: ApplicationCommandOptionTypes.String,
-		// },
 	]
 }
 
