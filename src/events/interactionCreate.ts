@@ -15,9 +15,17 @@ export const event: typeof bot.events.interactionCreate = async (interaction) =>
 
         try {
             await command.execute(interaction as unknown as Interaction, commandOptionsParser(interaction));
-        } catch (e) {
+        } catch (e: any) {
             logger.error(`Error executing command ${command.name}: ${e}`);
-            interaction.respond({ content: "An error occurred while executing the command." });
+
+            interaction.respond({ 
+                embeds: [{
+                    title: "An error occured while executing the command!",
+                    type: 'rich',
+                    description: e.message,
+                    color: 0xDA3E44
+                }],
+            }, { isPrivate: true });
         }
     }
 }

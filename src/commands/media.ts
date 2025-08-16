@@ -26,14 +26,19 @@ const media: Command = {
 		} else if (args.get.url) {
 			const linkProcessor = new LinkProcessor(args.get.url.link);
 			const files = await performance(linkProcessor, linkProcessor.execute);
-
-			await interaction.respond({ files: files.map((file) => {
+			const filesToSend = files.map((file) => {
                     return {
                         name: linkProcessor.id + '.' + LinkUtils.getExtensionFromFileType(file),
                         blob: file,
                     }
-                })
-			});
+                }
+			);
+
+			while (filesToSend.length > 0) {
+				await interaction.respond({ 
+					files: filesToSend.splice(0, Math.min(10, filesToSend.length))
+				})
+			}
 		}
 
 		logger.info(`Successfully sent media for ${args.get.url?.link ?? args.get.file?.name}`);
