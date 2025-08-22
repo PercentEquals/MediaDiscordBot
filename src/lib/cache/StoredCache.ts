@@ -1,3 +1,4 @@
+import { DISCORD_LIMIT_KB } from "../../consts/discord";
 import { Logger } from "../../logger";
 import fs from "fs";
 
@@ -11,6 +12,11 @@ export namespace StoredCache {
 
         for (const file of files) {
             if (file.startsWith('.')) {
+                continue;
+            }
+
+            if (fs.statSync(`.cache/${file}`).size >= DISCORD_LIMIT_KB) {
+                logger.warn(`File ${file} is too large and will not be available as cached file!`);
                 continue;
             }
 

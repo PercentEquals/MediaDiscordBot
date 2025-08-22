@@ -52,7 +52,7 @@ export const event: typeof bot.events.messageCreate = async (message) => {
     } catch (e) {
         await bot.rest.patch(`/channels/${message.channelId}/messages/${message.id}`, {
             body: {
-                flags: message.flags
+                flags: 0
             }
         }).catch();
 

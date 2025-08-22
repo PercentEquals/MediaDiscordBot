@@ -1,4 +1,4 @@
-import { DISCORD_LIMIT } from "../../consts/discord";
+import { DISCORD_LIMIT, DISCORD_LIMIT_KB } from "../../consts/discord";
 import { Logger } from "../../logger";
 import FFMPEGProcessor from "../ffmpeg/FFMPEGProcessor";
 import type IProcessor from "../interfaces/IProcessor";
@@ -20,7 +20,7 @@ export default class SplitProccessor implements IProcessor<Blob[]> {
         const duration = json.duration;
         const filesize = json.filesize ?? json.filesize_approx;
 
-        const chunks = Math.ceil(filesize / (DISCORD_LIMIT * 1024 * 1024));
+        const chunks = Math.ceil(filesize / DISCORD_LIMIT_KB);
         const chunkDuration = Math.round(duration / chunks);
         const blobs: Blob[] = [];
 

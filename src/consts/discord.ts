@@ -1,1 +1,2 @@
 export const DISCORD_LIMIT = 10; // 10MB
+export const DISCORD_LIMIT_KB = DISCORD_LIMIT * 1024 * 1024;

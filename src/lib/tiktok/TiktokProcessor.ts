@@ -1,6 +1,6 @@
 import parse from "node-html-parser";
 import { downloadBlob } from "../file/download";
-import { DISCORD_LIMIT } from "../../consts/discord";
+import { DISCORD_LIMIT_KB } from "../../consts/discord";
 import type IProcessor from "../interfaces/IProcessor";
 
 export default class TiktokProcessor implements IProcessor<Blob[]> {
@@ -66,7 +66,7 @@ export default class TiktokProcessor implements IProcessor<Blob[]> {
 
         const file = await this.download(downloadAddr);
 
-        if (file.size > DISCORD_LIMIT * 1024 * 1024) {
+        if (file.size > DISCORD_LIMIT_KB) {
             return [];
         }
 

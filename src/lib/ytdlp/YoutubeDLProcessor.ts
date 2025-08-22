@@ -1,5 +1,5 @@
 import { YtDlp } from "ytdlp-nodejs";
-import { DISCORD_LIMIT } from "../../consts/discord";
+import { DISCORD_LIMIT_KB } from "../../consts/discord";
 import { Logger } from "../../logger";
 import type IProcessor from "../interfaces/IProcessor";
 import YoutubeDLInfoProcessor from "./YoutubeDLInfoProccessor";
@@ -43,7 +43,7 @@ export default class YoutubeDLProcessor implements IProcessor<Blob[]> {
     public async execute(): Promise<Blob[]> {        
         YoutubeDLProcessor.logger.debug(`Executing yt-dlp command with args: ${this.command.join(' ')}`);
 
-        const buffer = Buffer.alloc(DISCORD_LIMIT * 1024 * 1024);
+        const buffer = Buffer.alloc(DISCORD_LIMIT_KB);
         await Bun.$`${this.executor} ${this.command} --output - > ${buffer}`;
         const blob = new Blob([trim(buffer)], { type: "video/mp4" });
 
